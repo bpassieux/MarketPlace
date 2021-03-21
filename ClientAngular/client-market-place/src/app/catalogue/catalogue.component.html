@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Catalogue du Sorceleur</h2>
+            <ul class="list-group">
+                <app-produit
+                *ngFor="let produit of produits" 
+                [nomProduit]="produit.nomProduit"
+                [prixProduit]="produit.prixProduit" 
+                [poidsProduit]="produit.poidsProduit" 
+                ></app-produit>
+            </ul>
+            <h6>Veuillez saisir votre numero de carte pour commander</h6>
+            <input type="number" class="form-control" [(ngModel)]="numeroCarte"/>
+            <h6 *ngIf="etatCarte === 'Accepte'" class="text-success">Carte acceptée</h6>
+            <h6 *ngIf="etatCarte === 'Refuse'" class="text-danger">Carte refusée</h6>
+            <button class="btn btn-danger" (click)="onClickVerifCard()">Commander</button>
+        </div>
+    </div>
+</div>
