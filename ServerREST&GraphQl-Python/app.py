@@ -37,10 +37,10 @@ class Query(graphene.ObjectType):
 def test():
     return "Hello World !"
 
-@app.route("/soap/<prixProduit>/<poidsProduit>/<distance>", methods=['GET'])
-def getPrixFrinal(prixProduit, poidsProduit, distance):
+@app.route("/soap/<prixProduit>/<poidsProduit>/<distance>/<nombre>", methods=['GET'])
+def getPrixFrinal(prixProduit, poidsProduit, distance, nombre):
     client = Client(urlSOAP)
-    prixFinal = client.service.fdp(prixProduit, distance, poidsProduit)
+    prixFinal = client.service.fdp(prixProduit, distance, poidsProduit, nombre)
     print(prixFinal)
     res = [prixFinal]
     return str(res)
@@ -49,22 +49,21 @@ def getPrixFrinal(prixProduit, poidsProduit, distance):
 def verifCarteBancaire(numCarte):
     res = False
     if(len(numCarte) == 16):
-        c=0
-        summ=0
-        second=False
-        length=len(numCarte);
-        for i in range (length-1,-1,-1):
-            c=int(numCarte[i])
-            if second==True:
-                c=c*2	
-            summ=summ+c/10
-            summ=summ+c%10
-            second= not second
-        if summ%10==0:	
-            return jsonify({'result' : True})
-        return jsonify({'result' : False})
-    else:
-        return jsonify({'result' : False})
+        res = True
+    #    c=0
+    #    summ=0
+    #    second=False
+    #    length=len(numCarte);
+    #    for i in range (length-1,-1,-1):
+    #        c=int(numCarte[i])
+    #        if second==True:
+    #            c=c*2	
+    #        summ=summ+c/10
+    #        summ=summ+c%10
+    #        second= not second
+    #    if summ%10==0:	
+    #        return jsonify({'result' : True})
+    return jsonify({'result' : res})
 
 @app.route("/produit", methods = ['GET'])
 def getProduits():

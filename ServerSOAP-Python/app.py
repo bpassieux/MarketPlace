@@ -9,10 +9,10 @@ from wsgiref.simple_server import make_server
 
 
 class HelloWorldService(ServiceBase):
-    @rpc(Float, Float, Float, _returns=Float)
-    def fdp(self, prix, distance, poids) :
+    @rpc(Float, Float, Float, Integer, _returns=Float)
+    def fdp(self, prix, distance, poids, nombre) :
         # Retourne le prix final (ajout des fdp)
-        return prix + min((distance * poids / 5 ), poids * 5)
+        return (nombre * prix) + min((distance * poids / 5 ), poids * 5)
 
 application = Application([HelloWorldService],
     tns='spyne.examples.hello',
